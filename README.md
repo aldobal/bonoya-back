@@ -503,7 +503,7 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
 Para preguntas o soporte:
 - **Issues**: GitHub Issues
-- **Email**: contacto@bonoya.com
+- **Email**: aldobaldeon@gmail.com
 - **Documentación**: Swagger UI en `/swagger-ui.html`
 
 ---
