@@ -1,0 +1,31 @@
+services:
+  db:
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_DEV}
+      POSTGRES_USER: ${POSTGRES_USER_DEV}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_DEV}
+
+  backend:
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB_DEV}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER_DEV}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD_DEV}
+      AUTHORIZATION_JWT_SECRET: ${JWT_SECRET_DEV}
+      AUTHORIZATION_JWT_EXPIRATION_DAYS: 30
+      SPRING_DEVTOOLS_RESTART_ENABLED: "true"
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+    volumes:
+      - ./pom.xml:/app/pom.xml
+      - ./src:/app/src
+      - maven-cache:/root/.m2
+    command: mvn spring-boot:run
+
+volumes:
+  maven-cache:
+    driver: local 
